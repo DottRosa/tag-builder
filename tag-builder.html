@@ -1,0 +1,71 @@
+<div id="result">
+
+</div>
+
+<script>
+var tag = {
+    type: 'section',
+    classes: ['classe1', 'classe2'],
+    data: {
+        media: 'val',
+        lightbox: 'val2'
+    },
+    attributes: {
+        'aria-label': 'val',
+        'attr-la': 'val2'
+    },
+    content: 'Testo di prova',
+    children: [
+        {
+            type: 'button',
+            classes: ['classe'],
+            data: {},
+            attributes: {},
+            content: 'Pulsante',
+            children: []
+        },
+        {
+            type: 'a',
+            classes: [],
+            data: {},
+            attributes: {
+                href: 'link....'
+            },
+            content: 'Clicca qui',
+            children: []
+        }
+    ]
+};
+
+
+var TagBuilder = function(t){
+    var tag = document.createElement(t.type);
+
+    for (var c of t.classes) {
+        tag.classList.add(c);
+    }
+    for (var d in t.data) {
+        tag.setAttribute('data-'+d, t.data[d]);
+    }
+    for (var a in t.attributes) {
+        tag.setAttribute(a, t.attributes[a]);
+    }
+    var content = document.createTextNode(t.content);
+
+    tag.appendChild(content);
+    if(t.children.length == 0){
+        return tag;
+    } else {
+        for (var child of t.children) {
+            tag.appendChild(TagBuilder(child));
+        }
+        return tag;
+    }
+}
+
+var result = TagBuilder(tag);
+console.log(result);
+document.getElementById('result').appendChild(result);
+
+
+</script>
