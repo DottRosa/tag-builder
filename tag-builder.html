@@ -6,31 +6,31 @@
 var tag = {
     type: 'section',
     id: 'myId',
-    classes: ['classe1', 'classe2'],
+    classes: ['my-class1', 'my-class2'],
     data: {
-        media: 'val',
+        media: 'val1',
         lightbox: 'val2'
     },
     attributes: {
-        'aria-label': 'val',
-        'attr-la': 'val2'
+        'aria-label': 'val3',
+        'myattribute': 'val4'
     },
-    content: 'Testo di prova',
+    content: 'This is my section',
     events: {
         click: function(){
-            console.log('prova');
+            console.log('this is click event');
         },
         mouseover: function(){
-            console.log('entra mouseover');
+            console.log('this is mouseover event');
         },
     },
     children: [
         {
             type: 'button',
-            classes: ['classe'],
+            classes: ['my-class3'],
             data: {},
             attributes: {},
-            content: 'Pulsante',
+            content: 'Click me',
             children: []
         },
         {
@@ -40,7 +40,7 @@ var tag = {
             attributes: {
                 href: 'link....'
             },
-            content: 'Clicca qui',
+            content: 'Click this link',
             children: []
         }
     ]
@@ -50,7 +50,9 @@ var tag = {
 var TagBuilder = function(t){
     var tag = document.createElement(t.type);
 
-    tag.id = t.id;
+    if(t.id !== undefined && t.id !== null){
+        tag.id = t.id;
+    }
 
     for (var c of t.classes) {
         tag.classList.add(c);
